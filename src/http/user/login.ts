@@ -20,8 +20,8 @@ export function useLoginMutation(){
     onSuccess: () => {
       router.push("/")
     },
-    onError: () => {
-      console.log("Ocorreu um erro ao realizar o login")
+    onError: (err) => {
+      console.log("Ocorreu um erro ao realizar o login", err)
     }
   })
 

@@ -15,6 +15,7 @@ import { useLoginMutation } from "@/src/http/user/login"
 import z from "zod"
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod"
+import Link from "next/link"
 
 const loginSchema = z.object({
   email: z.email("Digite um email válido"),
@@ -41,9 +42,9 @@ export function LoginForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader>
-          <CardTitle>Login to your account</CardTitle>
+          <CardTitle>Logue com sua conta</CardTitle>
           <CardDescription>
-            Enter your email below to login to your account
+            Digite seus dados abaixo para acessar sua conta
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -65,13 +66,7 @@ export function LoginForm({
               </div>
               <div className="grid gap-3">
                 <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
-                  <a
-                    href="#"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                  >
-                    Forgot your password?
-                  </a>
+                  <Label htmlFor="password">Senha</Label>
                 </div>
                 <Input id="password" {...register("password")} type="password" required />
                 {errors.password && (
@@ -79,19 +74,16 @@ export function LoginForm({
                 )}
               </div>
               <div className="flex flex-col gap-3">
-                <Button type="submit" className="w-full cursor-pointer">
+                <Button type="submit" className="w-full cursor-pointer" disabled={isSubmitting}> 
                   Login
-                </Button>
-                <Button variant="outline" className="w-full" disabled={isSubmitting}>
-                  Login with Google
                 </Button>
               </div>
             </div>
             <div className="mt-4 text-center text-sm">
-              Don&apos;t have an account?{" "}
-              <a href="#" className="underline underline-offset-4">
-                Sign up
-              </a>
+              Não tem uma conta?{" "}
+              <Link href="/register" className="underline underline-offset-4">
+                Registre-se
+              </Link>
             </div>
           </form>
         </CardContent>
