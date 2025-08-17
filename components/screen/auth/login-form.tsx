@@ -28,7 +28,7 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  const { mutate, isError } = useLoginMutation();
+  const { mutate } = useLoginMutation();
 
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoginSchemaForm>({
     resolver: zodResolver(loginSchema)
@@ -83,6 +83,12 @@ export function LoginForm({
               Não tem uma conta?{" "}
               <Link href="/register" className="underline underline-offset-4">
                 Registre-se
+              </Link>
+            </div>
+            <div className="mt-4 text-center text-sm">
+              Deseja criar uma organização?{" "}
+              <Link href="/organization" className="underline underline-offset-4">
+                Clique aqui!
               </Link>
             </div>
           </form>
