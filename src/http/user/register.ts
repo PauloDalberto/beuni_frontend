@@ -4,6 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { API } from "../api";
 import { useRouter } from "next/navigation";
 import { RegisterData } from "../@types/user/register";
+import { toast } from "sonner";
 
 const fetchRegister = async (data: RegisterData) => {
   const response = await API.post('/register', data, {
@@ -18,10 +19,11 @@ export function useRegisterMutation(){
   const mutate = useMutation({
     mutationFn: fetchRegister,
     onSuccess: () => {
+      toast("Usuário cadastrado com sucesso!")
       router.push("/login")
     },
     onError: () => {
-      console.log("Ocorreu um erro ao realizar o login")
+      toast("Ocorreu um erro ao realizar o cadastro!")
     }
   })
 
