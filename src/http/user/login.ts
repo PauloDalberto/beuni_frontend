@@ -5,6 +5,7 @@ import { LoginData } from "../@types/user/login";
 import { API } from "../api";
 import { useRouter } from "next/navigation";
 import { useUserStore } from "@/src/stores/user-store";
+import { toast } from "sonner";
 
 const fetchLogin = async (data: LoginData) => {
   const response = await API.post('/login', data, {
@@ -21,9 +22,11 @@ export function useLoginMutation(){
     mutationFn: fetchLogin,
     onSuccess: (data) => {
       setUser({ name: data.user.name, email: data.user.email })
+      toast("Login realizado com sucesso!")
       router.push("/")
     },
     onError: (err) => {
+      toast("Ocorreu um erro ao realizar o login")
       console.log("Ocorreu um erro ao realizar o login", err)
     }
   })
