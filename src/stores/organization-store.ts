@@ -7,28 +7,21 @@ type Organization = {
 }
 
 type OrganizationState = {
-  organizations: Organization[]
   selectedOrg: Organization | null
-  setOrganizations: (orgs: Organization[]) => void
-  setSelectedOrg: (org: Organization) => void
-  clearSelectedOrg: () => void
+  setOrg: (org: Organization) => void
+  clearOrg: () => void
 }
 
 export const useOrganizationStore = create<OrganizationState>()(
   persist(
     (set) => ({
-      organizations: [],
       selectedOrg: null,
-      setOrganizations: (orgs) => set({ organizations: orgs }),
-      setSelectedOrg: (org) => set({ selectedOrg: org }),
-      clearSelectedOrg: () => set({ selectedOrg: null }),
+      setOrg: (org) => set({ selectedOrg: org }),
+      clearOrg: () => set({ selectedOrg: null }),
     }),
     {
-      name: "organization-storage",
-      partialize: (state) => ({
-        organizations: state.organizations,
-        selectedOrg: state.selectedOrg,
-      }),
+      name: "organization-storage", 
+      partialize: (state) => ({ selectedOrg: state.selectedOrg }),
     }
   )
 )
