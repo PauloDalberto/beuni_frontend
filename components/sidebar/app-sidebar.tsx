@@ -40,10 +40,8 @@ import { useGetUserOrganization } from "@/src/http/user-organizations/get-user-o
 const data = {
   navMain: [
     { title: "Dashboard", url: "#", icon: IconDashboard },
-    { title: "Lifecycle", url: "#", icon: IconListDetails },
-    { title: "Analytics", url: "#", icon: IconChartBar },
-    { title: "Projects", url: "#", icon: IconFolder },
-    { title: "Team", url: "#", icon: IconUsers },
+    { title: "Departamentos", url: "#", icon: IconFolder },
+    { title: "Funcionários", url: "#", icon: IconUsers },
   ],
   navSecondary: [
     { title: "Settings", url: "#", icon: IconSettings },
@@ -95,8 +93,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavDocuments items={data.documents} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        {/* <NavDocuments items={data.documents} />
+        <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
       </SidebarContent>
 
       <SidebarFooter>
