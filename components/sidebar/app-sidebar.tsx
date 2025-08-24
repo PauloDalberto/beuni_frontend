@@ -40,9 +40,9 @@ import { useGetUserOrganization } from "@/src/http/user-organizations/get-user-o
 const data = {
   navMain: [
     { title: "Dashboard", url: "/dashboard", icon: IconDashboard },
-    { title: "Employees", url: "/employees", icon: IconUsers },
-    { title: "Departments", url: "/departments", icon: IconFolder },
-    { title: "Gifts", url: "/gifts", icon: IconListDetails },
+    { title: "Funcionários", url: "/employees", icon: IconUsers },
+    { title: "Departamentos", url: "/departments", icon: IconFolder },
+    { title: "Presentes", url: "/gifts", icon: IconListDetails },
   ],
   navSecondary: [
     { title: "Settings", url: "#", icon: IconSettings },
