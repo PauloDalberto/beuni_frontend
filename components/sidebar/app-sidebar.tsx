@@ -39,11 +39,10 @@ import { useGetUserOrganization } from "@/src/http/user-organizations/get-user-o
 
 const data = {
   navMain: [
-     { title: "Dashboard", url: "/dashboard", icon: IconDashboard },
-    { title: "Employees", url: "/dashboard/employees", icon: IconUsers },
-    { title: "Departments", url: "/dashboard/departments", icon: IconFolder },
-    { title: "Birthdays", url: "/dashboard/birthdays", icon: IconListDetails },
-    { title: "Gifts", url: "/dashboard/gifts", icon: IconFolder },
+    { title: "Dashboard", url: "/dashboard", icon: IconDashboard },
+    { title: "Employees", url: "/employees", icon: IconUsers },
+    { title: "Departments", url: "/departments", icon: IconFolder },
+    { title: "Gifts", url: "/gifts", icon: IconListDetails },
   ],
   navSecondary: [
     { title: "Settings", url: "#", icon: IconSettings },
