@@ -21,7 +21,7 @@ export function useLoginMutation(){
   const mutate = useMutation({
     mutationFn: fetchLogin,
     onSuccess: (data) => {
-      setUser({ name: data.user.name, email: data.user.email })
+      setUser({ name: data.user.name, email: data.user.email, id: data.user.id })
       toast("Login realizado com sucesso!")
       router.push("/")
     },

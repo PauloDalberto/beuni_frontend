@@ -33,6 +33,8 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import { useUserStore } from "@/src/stores/user-store"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
+import { useGetUserOrganization } from "@/src/http/user-organizations/get-user-organization"
 
 const data = {
   navMain: [
@@ -148,6 +150,7 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const user = useUserStore(state => state.user)
+  const { data: userOrganizationData } = useGetUserOrganization()
   
   return (
     <Sidebar collapsible="offcanvas" {...props}>
@@ -158,10 +161,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
-              <a href="#">
-                <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">Acme Inc.</span>
-              </a>
+              <Select>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Selecione uma organização!"/>
+                </SelectTrigger>
+                <SelectContent>
+                  {userOrganizationData?.map((item) => (
+                    <SelectItem key={item.orgId} value={item.orgId}>
+                      {item.orgName}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
