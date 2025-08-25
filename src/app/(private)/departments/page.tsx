@@ -1,7 +1,7 @@
 export default function Departments() {
- return (
-   <div>
-    oi
-   </div>
+  return (
+    <div>
+      <h1>Verificar meus departamentos</h1>
+    </div>
  );
 }
