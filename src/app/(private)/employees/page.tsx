@@ -1,12 +1,47 @@
 'use client'
 
 import { DataTable } from "@/components/datatable";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useCreateEmployeeMutation } from "@/src/http/employee/create-employee";
 import { useGetEmployee } from "@/src/http/employee/get-employee";
 import { useOrganizationStore } from "@/src/stores/organization-store";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import z from "zod";
+
+const employeeSchema = z.object({
+  user_id: z.string().min(1, "Digite algum valor válido"),
+  department_id: z.string().min(1, "Digite algum valor válido"),
+  birth_date: z.string(),
+  job_title: z.string().min(1, "Digite algum valor válido"),
+})
+
+type EmployeeSchemaForm = z.infer<typeof employeeSchema>
+
 
 export default function Employees() {
   const { selectedOrg } = useOrganizationStore();
-  const { data } = useGetEmployee(selectedOrg?.orgId)
+  const { data } = useGetEmployee(selectedOrg?.orgId);
+  const { mutate } = useCreateEmployeeMutation()
+
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<EmployeeSchemaForm>({
+    resolver: zodResolver(employeeSchema)
+  })
+
+  const onSubmit: SubmitHandler<EmployeeSchemaForm> = (data) => {
+    if (!selectedOrg?.orgId) {
+      toast("Selecione uma organização");
+      return;
+    }
+
+    mutate({ 
+      ...data,  
+      organization_id: selectedOrg?.orgId 
+    })
+  }
 
   return (
     <div className="flex flex-col gap-4">
@@ -17,6 +52,45 @@ export default function Employees() {
 
       <div>
         <h1 className="text-4xl font-bold mb-2">Registrar novo funcionário</h1>
+        <form className="mt-6" onSubmit={handleSubmit(onSubmit)}>
+          <div className="flex flex-col gap-4">
+
+            <div className="grid gap-2">
+              <div className="flex items-center">
+                <Label htmlFor="user_id">Id do Usuário</Label>
+              </div>
+              <Input id="user_id" {...register("user_id")} type="text" required />
+            </div>
+
+            <div className="grid gap-2">
+              <div className="flex items-center">
+                <Label htmlFor="department_id">Id do Departamento</Label>
+              </div>
+              <Input id="department_id" {...register("department_id")} type="text" required />
+            </div>
+
+            <div className="grid gap-2">
+              <div className="flex items-center">
+                <Label htmlFor="birth_date">Data de nascimento</Label>
+              </div>
+              <Input id="birth_date" {...register("birth_date")} type="date" required />
+              {errors.birth_date && (
+                <p className="text-sm text-red-500">{errors.birth_date.message}</p>
+              )}
+            </div>
+
+            <div className="grid gap-2">
+              <div className="flex items-center">
+                <Label htmlFor="job_title">Função</Label>
+              </div>
+              <Input id="job_title" {...register("job_title")} type="text" required />
+            </div>
+
+            <Button type="submit" className="w-full cursor-pointer" disabled={isSubmitting}>Registrar funcionário</Button>
+
+          </div>
+        </form>
+
       </div>
     </div>
  );

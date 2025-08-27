@@ -7,3 +7,11 @@ export interface EmployeeData {
   created_at: string
   department: string
 }
+
+export interface CreateEmployeeData {
+  user_id: string;
+  job_title: string;
+  birth_date: string;
+  department_id: string;
+  organization_id: string;
+}
