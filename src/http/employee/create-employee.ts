@@ -14,14 +14,14 @@ const fetchEmployee = async (data: CreateEmployeeData) => {
   return response.data
 }
 
-export function useCreateEmployeeMutation(organizationId?: string){
+export function useCreateEmployeeMutation(){
   const queryClient  = useQueryClient()
 
   const mutate = useMutation({
     mutationFn: fetchEmployee,
-    onSuccess: () => {
+    onSuccess: (_data, variables) => {
       toast("Funcionário cadastrado com sucesso!")
-      queryClient.invalidateQueries({ queryKey: ['get-employees', organizationId] })
+      queryClient.invalidateQueries({ queryKey: ['get-employees', variables.organization_id] })
     },
     onError: () => {
       toast("Ocorreu um erro ao realizar o cadastro!")

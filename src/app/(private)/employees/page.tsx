@@ -25,7 +25,7 @@ type EmployeeSchemaForm = z.infer<typeof employeeSchema>
 export default function Employees() {
   const { selectedOrg } = useOrganizationStore();
   const { data } = useGetEmployee(selectedOrg?.orgId);
-  const { mutate } = useCreateEmployeeMutation(selectedOrg?.orgId)
+  const { mutate } = useCreateEmployeeMutation()
 
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<EmployeeSchemaForm>({
     resolver: zodResolver(employeeSchema)
