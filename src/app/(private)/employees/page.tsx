@@ -25,7 +25,7 @@ type EmployeeSchemaForm = z.infer<typeof employeeSchema>
 export default function Employees() {
   const { selectedOrg } = useOrganizationStore();
   const { data } = useGetEmployee(selectedOrg?.orgId);
-  const { mutate } = useCreateEmployeeMutation()
+  const { mutate } = useCreateEmployeeMutation(selectedOrg?.orgId)
 
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<EmployeeSchemaForm>({
     resolver: zodResolver(employeeSchema)
@@ -60,6 +60,9 @@ export default function Employees() {
                 <Label htmlFor="user_id">Id do Usuário</Label>
               </div>
               <Input id="user_id" {...register("user_id")} type="text" required />
+              {errors.user_id && (
+                <p className="text-sm text-red-500">{errors.user_id.message}</p>
+              )}
             </div>
 
             <div className="grid gap-2">
@@ -67,6 +70,9 @@ export default function Employees() {
                 <Label htmlFor="department_id">Id do Departamento</Label>
               </div>
               <Input id="department_id" {...register("department_id")} type="text" required />
+              {errors.department_id && (
+                <p className="text-sm text-red-500">{errors.department_id.message}</p>
+              )}
             </div>
 
             <div className="grid gap-2">
@@ -84,6 +90,9 @@ export default function Employees() {
                 <Label htmlFor="job_title">Função</Label>
               </div>
               <Input id="job_title" {...register("job_title")} type="text" required />
+              {errors.job_title && (
+                <p className="text-sm text-red-500">{errors.job_title.message}</p>
+              )}
             </div>
 
             <Button type="submit" className="w-full cursor-pointer" disabled={isSubmitting}>Registrar funcionário</Button>

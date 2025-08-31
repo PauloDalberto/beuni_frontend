@@ -9,7 +9,7 @@ const fetchGetOrganization = async (): Promise<OrganizationData> => {
 
 export function useGetOrganization(){
   return useQuery<OrganizationData>({
-    queryKey: ['get-organiations'],
+    queryKey: ['get-organizations'],
     queryFn: fetchGetOrganization,
   })
 }
