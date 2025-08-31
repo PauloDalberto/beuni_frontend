@@ -14,8 +14,11 @@ import { Label } from "@/components/ui/label"
 import z from "zod"
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod"
-import Link from "next/link"
 import { useCreateOrganizationMutation } from "@/src/http/organization/create-organization"
+import { useState } from "react"
+import { OrganizationDataResponse } from "@/src/http/@types/organization/organization"
+import { useRouter } from "next/navigation"
+import { toast } from "sonner"
 
 const organizationSchema = z.object({
   name: z.string().min(3, "Insira pelo menos 3 caracteres")
@@ -28,13 +31,17 @@ export function OrganizationForm({
   ...props
 }: React.ComponentProps<"div">) {
   const { mutate } = useCreateOrganizationMutation();
+  const [createdOrg, setCreatedOrg] = useState<OrganizationDataResponse | null>(null);
+  const router = useRouter()
 
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<OrganizationSchemaForm>({
     resolver: zodResolver(organizationSchema)
   })
 
   const onSubmit = (data: OrganizationSchemaForm) => {
-    mutate(data)
+    mutate(data, {
+      onSuccess: (org) => setCreatedOrg(org[0])
+    })
   }
 
   return (
@@ -72,6 +79,28 @@ export function OrganizationForm({
           </form>
         </CardContent>
       </Card>
+      {createdOrg && (
+        <Card className="mt-4">
+          <CardHeader>
+            <CardTitle>Sua organização foi criada!</CardTitle>
+            <CardDescription>
+              Este é seu ID da organização, salve-o para se cadastrar:
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="flex flex-row items-center gap-2">
+            <p className="font-mono">{createdOrg.id}</p>
+            <Button 
+              onClick={() => {
+                navigator.clipboard.writeText(createdOrg.id)
+                toast("ID copiado com sucesso!")
+                router.push("/login")
+              }}
+            >
+              Copiar e ir para login
+            </Button>
+          </CardContent>
+        </Card>
+      )}
     </div>
   )
 }
