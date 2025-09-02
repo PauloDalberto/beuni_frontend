@@ -4,6 +4,8 @@ import { DataTable } from "@/components/datatable";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useGetDepartment } from "@/src/http/department/get-department";
 import { useCreateEmployeeMutation } from "@/src/http/employee/create-employee";
 import { useGetEmployee } from "@/src/http/employee/get-employee";
 import { useOrganizationStore } from "@/src/stores/organization-store";
@@ -21,15 +23,17 @@ const employeeSchema = z.object({
 
 type EmployeeSchemaForm = z.infer<typeof employeeSchema>
 
-
 export default function Employees() {
   const { selectedOrg } = useOrganizationStore();
   const { data } = useGetEmployee(selectedOrg?.orgId);
-  const { mutate } = useCreateEmployeeMutation()
+  const { mutate } = useCreateEmployeeMutation();
+  const { data: getDepartment } = useGetDepartment(selectedOrg?.orgId)
 
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<EmployeeSchemaForm>({
+  const { register, handleSubmit, setValue, watch, formState: { errors, isSubmitting } } = useForm<EmployeeSchemaForm>({
     resolver: zodResolver(employeeSchema)
   })
+
+  const departmentId = watch("department_id")
 
   const onSubmit: SubmitHandler<EmployeeSchemaForm> = (data) => {
     if (!selectedOrg?.orgId) {
@@ -55,8 +59,27 @@ export default function Employees() {
         <form className="mt-6" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col gap-4">
 
-            <p>{selectedOrg?.orgName}</p>
-            <p>{selectedOrg?.role}</p>
+            <div className="grid gap-2">
+              <Label htmlFor="user_id">Selecione um departamento</Label>
+              <Select
+                onValueChange={(value) => setValue("department_id", value)}
+                value={departmentId || ""}
+              >
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Selecione um departamento!" />
+                </SelectTrigger>
+                <SelectContent>
+                  {getDepartment?.map((item) => (
+                    <SelectItem key={item.id} value={item.id}>
+                      {item.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {errors.department_id && (
+                <p className="text-sm text-red-500">{errors.department_id.message}</p>
+              )}
+            </div>
 
             <div className="grid gap-2">
               <div className="flex items-center">
@@ -65,16 +88,6 @@ export default function Employees() {
               <Input id="user_id" {...register("user_id")} type="text" required />
               {errors.user_id && (
                 <p className="text-sm text-red-500">{errors.user_id.message}</p>
-              )}
-            </div>
-
-            <div className="grid gap-2">
-              <div className="flex items-center">
-                <Label htmlFor="department_id">Id do Departamento</Label>
-              </div>
-              <Input id="department_id" {...register("department_id")} type="text" required />
-              {errors.department_id && (
-                <p className="text-sm text-red-500">{errors.department_id.message}</p>
               )}
             </div>
 
