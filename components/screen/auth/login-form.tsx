@@ -85,12 +85,6 @@ export function LoginForm({
                 Registre-se
               </Link>
             </div>
-            <div className="mt-4 text-center text-sm">
-              Deseja criar uma organização?{" "}
-              <Link href="/organization" className="underline underline-offset-4">
-                Clique aqui!
-              </Link>
-            </div>
           </form>
         </CardContent>
       </Card>
