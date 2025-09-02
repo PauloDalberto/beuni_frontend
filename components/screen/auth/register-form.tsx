@@ -20,7 +20,6 @@ const registerSchema = z.object({
   name: z.string().min(3, "Inclua no minimo 3 caracteres"),
   email: z.email("Digite um email válido"),
   password: z.string().min(6, "A senha deve conter pelo menos 6 caracteres"),
-  organization_id: z.string().min(3, "Inclua no minimo 3 caracteres"),
   confirm_password: z.string().min(6, "A senha deve ter pelo menos 6 caracteres!")
 }).refine((data) => data.password === data.confirm_password, {
   message: "As senhas não são iguais!",
@@ -41,7 +40,6 @@ export function RegisterForm({
       email: '',
       password: '',
       name: '',
-      organization_id: ''
     }
   })
 
@@ -108,16 +106,6 @@ export function RegisterForm({
                 <Input id="confirm_password" {...register("confirm_password")} type="password" required />
                 {errors.confirm_password && (
                   <p className="text-sm text-red-500">{errors.confirm_password.message}</p>
-                )}
-              </div>
-
-              <div className="grid gap-3">
-                <div className="flex items-center">
-                  <Label htmlFor="organization_id">ID da Organização</Label>
-                </div>
-                <Input id="organization_id" {...register("organization_id")} type="organization_id" required />
-                {errors.organization_id && (
-                  <p className="text-sm text-red-500">{errors.organization_id.message}</p>
                 )}
               </div>
 
