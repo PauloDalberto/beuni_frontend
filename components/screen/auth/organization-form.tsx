@@ -28,7 +28,7 @@ export function OrganizationForm({
   ...props
 }: React.ComponentProps<"div">) {
   const { mutate } = useCreateOrganizationMutation();
-  const user = useUserStore((state) => state.user)
+  const { user } = useUserStore()
 
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<OrganizationSchemaForm>({
     resolver: zodResolver(organizationSchema)
