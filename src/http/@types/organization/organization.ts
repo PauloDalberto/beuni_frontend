@@ -1,4 +1,5 @@
 export interface OrganizationData {
+  userId: string
   name: string
 }
 

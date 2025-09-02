@@ -55,6 +55,9 @@ export default function Employees() {
         <form className="mt-6" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col gap-4">
 
+            <p>{selectedOrg?.orgName}</p>
+            <p>{selectedOrg?.role}</p>
+
             <div className="grid gap-2">
               <div className="flex items-center">
                 <Label htmlFor="user_id">Id do Usuário</Label>

@@ -40,6 +40,7 @@ import { useGetUserOrganization } from "@/src/http/user-organizations/get-user-o
 const data = {
   navMain: [
     { title: "Dashboard", url: "/dashboard", icon: IconDashboard },
+    { title: "Organização", url: "/organization", icon: IconListDetails },
     { title: "Funcionários", url: "/employees", icon: IconUsers },
     { title: "Departamentos", url: "/departments", icon: IconFolder },
     { title: "Presentes", url: "/gifts", icon: IconListDetails },

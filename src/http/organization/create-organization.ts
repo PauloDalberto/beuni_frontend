@@ -15,6 +15,7 @@ export function useCreateOrganizationMutation(){
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['get-organizations'] })
       toast("Organização criada com sucesso!")
+      
     },
     onError: () => {
       toast("Ocorreu um erro ao criar a organização!")

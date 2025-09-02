@@ -1,14 +1,10 @@
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
-
-type Organization = {
-  orgId: string
-  orgName: string
-}
+import { UserOrganization } from "../http/@types/user-organization/user-organization"
 
 type OrganizationState = {
-  selectedOrg: Organization | null
-  setOrg: (org: Organization) => void
+  selectedOrg: UserOrganization | null
+  setOrg: (org: UserOrganization) => void
   clearOrg: () => void
 }
 
@@ -20,7 +16,7 @@ export const useOrganizationStore = create<OrganizationState>()(
       clearOrg: () => set({ selectedOrg: null }),
     }),
     {
-      name: "organization-storage", 
+      name: "organization-storage",
       partialize: (state) => ({ selectedOrg: state.selectedOrg }),
     }
   )
