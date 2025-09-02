@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { API } from "../api";
 import { toast } from "sonner";
-import { DepartmentData } from "../@types/department/department";
+import { CreateDepartmentData } from "../@types/department/department";
 
-const fetchCreateDepartment = async (data: DepartmentData[]) => {
+const fetchCreateDepartment = async (data: CreateDepartmentData) => {
   const response = await API.post('/departments', data)
   return response.data
 }
