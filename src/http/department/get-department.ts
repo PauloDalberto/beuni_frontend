@@ -9,7 +9,7 @@ const fetchGetDepartment = async (organizationId: string): Promise<DepartmentDat
 
 export function useGetDepartment(organizationId?: string){
   return useQuery<DepartmentData[]>({
-    queryKey: ['get-department'],
+    queryKey: ['get-department', organizationId],
     queryFn: () => fetchGetDepartment(organizationId!),
     enabled: !!organizationId
   })
