@@ -1,6 +1,6 @@
 'use client'
 
-import { DataTable } from "@/components/datatable";
+import { DataTable } from "@/components/table/datatable";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
