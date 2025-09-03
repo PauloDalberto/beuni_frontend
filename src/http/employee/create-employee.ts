@@ -6,11 +6,7 @@ import { toast } from "sonner";
 import { CreateEmployeeData } from "../@types/employee/employee";
 
 const fetchEmployee = async (data: CreateEmployeeData) => {
-  const response = await API.post('/employees', data, {
-    withCredentials: true
-  })
-  
-  console.log(response.data)
+  const response = await API.post('/employees', data)
   return response.data
 }
 
