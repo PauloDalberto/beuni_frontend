@@ -15,3 +15,12 @@ export interface CreateEmployeeData {
   department_id: string;
   organization_id: string;
 }
+
+export interface BirthdayEmployeeData {
+  id: string
+  user_id: string
+  organization_id: string
+  name: string
+  job_title: string
+  birth_date: string
+}
